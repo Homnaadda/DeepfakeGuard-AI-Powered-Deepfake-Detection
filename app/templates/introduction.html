@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="main-content">
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="text-center mb-5">
+            <h1 class="hero-title animate-fade-in">Deepfake Detection Protocol</h1>
+            <p class="hero-subtitle mx-auto" style="max-width: 700px;">
+                Leveraging advanced Deep Learning to distinguish real from fake.
+                Secure your digital integrity with our state-of-the-art analysis tool.
+            </p>
+            <a href="{{ url_for('home') }}" class="btn-primary-custom d-inline-block" style="width: auto; padding: 15px 40px; font-size: 1.2rem; text-decoration: none;">
+                Launch Detection Tool
+            </a>
+        </div>
+
+        <!-- Features Section -->
+        <div class="row pt-5">
+            <div class="col-md-4 mb-4">
+                <div class="glass-card h-100 p-4 text-center">
+                    <div class="mb-3" style="color: var(--primary-color);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-lightning-charge-fill" viewBox="0 0 16 16">
+                            <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z" />
+                        </svg>
+                    </div>
+                    <h3 class="h4" style="color: var(--text-main);">Fast Analysis</h3>
+                    <p style="color: var(--text-muted);">Process videos quickly with our optimized PyTorch backend and CUDA support.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="glass-card h-100 p-4 text-center">
+                    <div class="mb-3" style="color: #10b981;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-shield-check" viewBox="0 0 16 16">
+                            <path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.23-1.158-.512-1.554-.757a61.44 61.44 0 0 0-3.332-1.285.485.485 0 0 0-.527 0zM8 3.5a.5.5 0 0 1 .5.5v1.5a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5zm2.937 8.021a9.721 9.721 0 0 1-2.437 1.738 9.712 9.712 0 0 1-2.438-1.738C4.542 9.878 3.193 7.555 3.655 4.318a60.444 60.444 0 0 1 2.203-1.077c.361.24.79.52 1.341.809V6.5a2.5 2.5 0 0 0 4.258 1.764l.87.87a.5.5 0 1 0 .707-.707l-.87-.87A2.5 2.5 0 0 0 10.334 6H10.5V3.88c.633.318 1.127.632 1.503.882.464 3.237-.885 5.56 1.434 7.259zM8.5 7.5A1.5 1.5 0 1 1 7.5 7.5 1.5 1.5 0 0 1 8.5 7.5z" />
+                        </svg>
+                    </div>
+                    <h3 class="h4" style="color: var(--text-main);">High Accuracy</h3>
+                    <p style="color: var(--text-muted);">Utilizing ResNeXt and LSTM networks to capture spatial and temporal anomalies.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="glass-card h-100 p-4 text-center">
+                    <div class="mb-3" style="color: var(--secondary-color);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                        </svg>
+                    </div>
+                    <h3 class="h4" style="color: var(--text-main);">Visual Insights</h3>
+                    <p style="color: var(--text-muted);">Explore frame-by-frame analysis with face cropping and confidence heatmaps.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Section -->
+        <div class="py-5">
+            <div class="glass-card p-5">
+                <div class="row align-items-center">
+                    <div class="col-md-6 mb-4 mb-md-0">
+                        <h2 class="font-weight-bold mb-4" style="color: var(--text-main);">What is a Deepfake?</h2>
+                        <p style="color: var(--text-muted); font-size: 1.1rem;">Deepfakes are synthetic media in which a person in an existing image or video is replaced with someone else's likeness.</p>
+                        <p style="color: var(--text-muted); font-size: 1.1rem;">Our tool helps verify the authenticity of digital media, protecting individuals and organizations from misinformation and identity theft.</p>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div style="color: var(--primary-color);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" fill="currentColor" class="bi bi-camera-video-fill opacity-50" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.461a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

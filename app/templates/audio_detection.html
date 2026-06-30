@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{%block content%}
+<div class="main-content animate-fade-in d-flex align-items-center justify-content-center" style="min-height: 80vh; padding: 40px 0; background-color: var(--bg-main);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <!-- Header -->
+                <div class="text-center mb-4">
+                    <div class="d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px; border-radius: 16px; background: rgba(16, 185, 129, 0.1); color: var(--success-color);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+                    </div>
+                    <h2 style="font-weight: 700; font-size: 1.8rem; color: var(--text-main); letter-spacing: -0.02em; margin-bottom: 8px;">Audio Authentication</h2>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Detect synthetic voice cloning and spectral frequency manipulation.</p>
+                </div>
+
+                <div class="glass-card premium-shadow mx-auto" style="padding: 30px; border-radius: 20px; border: 1px solid rgba(16,185,129,0.2); background: var(--bg-card);">
+                    
+                    <form class="form" method="POST" action="{{ url_for('audio_detection_post') }}" enctype="multipart/form-data" name="audio-upload" id="audio-upload">
+                        
+                        <div class="form-group mb-4">
+                            <label style="font-weight: 700; font-size: 0.9rem; color: var(--text-main); margin-bottom: 8px; display: block; text-transform: uppercase; letter-spacing: 0.05em;">Upload Audio Asset</label>
+                            <div class="drag-drop-zone" id="drag-drop-audio" onclick="document.getElementById('id_upload_audio_file').click()" style="border: 2px dashed rgba(16,185,129,0.4); border-radius: 12px; padding: 30px 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: rgba(15, 23, 42, 0.02);">
+                                <div class="upload-icon mb-2 text-success" style="color: var(--success-color);">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                </div>
+                                <div class="upload-text">
+                                    <h5 style="color: var(--text-main); font-weight: 700; font-size: 1rem; margin-bottom: 4px;">Click or Drag to Upload</h5>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0;">Supports MP3, WAV, M4A, FLAC (Max 20MB)</p>
+                                </div>
+                                <input type="file" name="upload_audio_file" id="id_upload_audio_file" required accept="audio/*" class="d-none">
+                                <div class="selected-file-details mt-3" id="audio-file-details" style="display: none; background: rgba(16,185,129,0.1); padding: 8px 12px; border-radius: 8px; align-items: center; justify-content: center; gap: 10px;">
+                                    <span class="file-name" style="font-weight: 600; color: var(--success-color); font-size: 0.85rem;"></span>
+                                    <span class="file-size badge" style="background: var(--success-color); color: #fff; font-size: 0.75rem;"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button id="audioUpload" type="submit" name="submit" class="btn w-100 btn-primary-premium" style="background: var(--success-color); border: none; font-size: 1rem; padding: 12px; color: #fff; border-radius: 10px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            Run Frequency Scan
+                        </button>
+                    </form>
+
+                    {%if error%}
+                    <div class="alert alert-danger mt-3 d-flex align-items-center mb-0" role="alert" style="background: rgba(244, 63, 94, 0.08); color: var(--danger-color); border: 1px solid rgba(244, 63, 94, 0.2); border-radius: 10px; padding: 12px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 10px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                        <span style="font-weight: 600; font-size: 0.85rem;">{{error}}</span>
+                    </div>
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
+
+{%block js_cripts%}
+<script src="{{ url_for('static', path='js/script.js') }}?v=6"></script>
+{%endblock%}

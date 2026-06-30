@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{%block content%}
+<div class="main-content" style="padding: 40px 0;">
+    <div class="container">
+        <div class="results-container">
+            <!-- Header Layout -->
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-3" style="border-bottom: 1px solid var(--border-light);">
+                <div class="mb-3 mb-md-0">
+                    <h2 style="font-weight: 700; font-size: 1.65rem; color: var(--text-main); margin-bottom: 4px; letter-spacing: -0.02em;">Audio Analysis Report</h2>
+                    <p class="text-muted mb-0" style="font-size: 0.95rem;">View AI-generated authenticity analysis results.</p>
+                </div>
+                <a href="{{ url_for('audio_detection') }}" class="btn-secondary-premium">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                    New Analysis
+                </a>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-12 mt-3">
+                    <div class="glass-card mx-auto text-center" style="max-width: 800px; padding: 40px; border-radius: 20px; box-shadow: var(--shadow-premium); border: 1px solid var(--border-light);">
+                        
+                        <div class="mb-5 pb-4" style="border-bottom: 1px solid var(--border-light);">
+                            <h5 class="text-muted mb-2" style="font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Source Audio Node</h5>
+                            <h3 class="mb-0" style="font-weight: 800; word-break: break-all; color: var(--accent-cyan); font-size: 1.4rem;">
+                                {{audio_filename}}
+                            </h3>
+                        </div>
+
+                        <div class="d-flex flex-column align-items-center mb-5">
+                            {%if audio_output == "REAL" or audio_output == "FAKE" %}
+                            
+                            <!-- Confidence Indicator -->
+                            <div class="circular-gauge mb-3">
+                                <svg viewBox="0 0 180 180">
+                                    <circle class="bg-circle" cx="90" cy="90" r="75"></circle>
+                                    <circle class="progress-circle" cx="90" cy="90" r="75" 
+                                            style="stroke: {% if audio_output == 'REAL' %}var(--success-color){% else %}var(--danger-color){% endif %};
+                                                   filter: drop-shadow(0 0 8px {% if audio_output == 'REAL' %}rgba(16,185,129,0.35){% else %}rgba(244,63,94,0.35){% endif %});
+                                                   stroke-dasharray: 471;
+                                                   stroke-dashoffset: calc(471 - (471 * {{ audio_confidence }}) / 100);">
+                                    </circle>
+                                </svg>
+                                <div class="gauge-content">
+                                    <div class="gauge-value" style="color: {% if audio_output == 'REAL' %}var(--success-color){% else %}var(--danger-color){% endif %};">{{audio_confidence}}%</div>
+                                    <div class="gauge-label">Confidence</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Prediction Badge -->
+                            <div class="d-inline-flex align-items-center justify-content-center gap-2" style="background: {% if audio_output == 'REAL' %}rgba(16, 185, 129, 0.08){% else %}rgba(244, 63, 94, 0.08){% endif %}; padding: 8px 20px; border-radius: 50px; border: 1px solid {% if audio_output == 'REAL' %}rgba(16, 185, 129, 0.2){% else %}rgba(244, 63, 94, 0.2){% endif %};">
+                                <img src="{% if audio_output == 'REAL' %}{{ url_for('static', path='images/thumpup.png') }}{% else %}{{ url_for('static', path='images/thumpdown.png') }}{% endif %}" alt="{{audio_output}}" style="width: 20px; height: 20px; object-fit: contain;">
+                                <div class="verdict-text {% if audio_output == 'REAL' %}text-green{% else %}text-danger{% endif %}" style="margin: 0; font-size: 1.25rem; font-weight: 800; line-height: 1; padding: 0;">
+                                    {{audio_output}}
+                                </div>
+                            </div>
+                            
+                            {%else%}
+                            <div class="circular-gauge mb-3">
+                                <svg viewBox="0 0 180 180">
+                                    <circle class="bg-circle" cx="90" cy="90" r="75"></circle>
+                                    <circle class="progress-circle" cx="90" cy="90" r="75" 
+                                            style="stroke: var(--text-light); stroke-dasharray: 471; stroke-dashoffset: 471;">
+                                    </circle>
+                                </svg>
+                                <div class="gauge-content">
+                                    <div class="gauge-value" style="color: var(--text-light); font-size: 1.6rem;">N/A</div>
+                                    <div class="gauge-label">Failed</div>
+                                </div>
+                            </div>
+                            <div class="verdict-text" style="color: var(--text-light); font-size: 1.25rem; font-weight: 800; text-transform: uppercase;">
+                                {{audio_output}}
+                            </div>
+                            {%endif%}
+                        </div>
+
+                        {% if visualization_url %}
+                        <div class="mt-5 text-center">
+                            <h4 class="mb-3" style="color: var(--text-main); font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                                Auditory Spectral Signature
+                            </h4>
+                            <div style="width: 100%; border-radius: 16px; border: 1px solid var(--border-light); padding: 10px; background: rgba(15, 23, 42, 0.02);">
+                                <img src="{{visualization_url}}" style="width: 100%; border-radius: 8px; max-height: 300px; object-fit: contain;">
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <div class="mt-5 pt-4 text-center" style="border-top: 1px solid var(--border-light);">
+                            <a href="{{ url_for('download_report') }}" class="btn-primary-premium">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                Download Forensic Report (PDF)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

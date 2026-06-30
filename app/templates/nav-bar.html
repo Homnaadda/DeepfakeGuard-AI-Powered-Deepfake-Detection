@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg sticky-top main-navbar" id="main-navbar">
+    <div class="container position-relative justify-content-center">
+        <div class="navbar-pill-container d-flex align-items-center w-100">
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', path='images/Logo.png') }}" alt="DeepFake Guard Logo" style="height: 24px; width: auto; object-fit: contain; margin-right: 2px;">
+                <span class="logo-main">DeepFake</span><span class="logo-accent">Guard</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                style="border: none; background: transparent; padding: 2px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto position-relative" id="nav-list">
+                    <div id="nav-spotlight" class="nav-spotlight-pill"></div>
+                    <li class="nav-item">
+                        <a class="nav-link nav-scroll-link active" href="/#hero">
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-scroll-link" href="/#models">
+                            Models
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('detection') }}">
+                            Detection
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-scroll-link" href="/#project-explanation">
+                            Project
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-scroll-link" href="/#contact">
+                            Contact
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

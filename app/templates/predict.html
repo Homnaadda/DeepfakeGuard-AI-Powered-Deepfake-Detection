@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+
+{%block content%}
+<div class="main-content" style="padding: 40px 0;">
+  <div class="container">
+    {%if no_faces%}
+    <div class="glass-card text-center mx-auto" style="max-width: 600px; padding: 40px; border-radius: 20px; box-shadow: var(--shadow-premium); border: 1px solid var(--border-light);">
+      <div class="mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--danger-color); filter: drop-shadow(0 0 8px rgba(244, 63, 94, 0.4)); margin-bottom: 20px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        <h3 style="font-weight: 800; color: var(--danger-color); letter-spacing: -0.02em;">No Faces Detected</h3>
+      </div>
+      <hr style="border-color: var(--border-light); margin: 25px 0;" />
+      <p class="text-muted mx-auto" style="max-width: 500px; line-height: 1.6;">
+        Cannot process the video. No recognizable faces were found in the uploaded footage. Ensure the video contains clear face shots.
+      </p>
+      <a href="{{ url_for('video_detection') }}" class="btn-secondary-premium mt-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        Try Another Video
+      </a>
+    </div>
+    {%else%}
+
+    <div class="results-container">
+      <!-- Header Layout -->
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-3" style="border-bottom: 1px solid var(--border-light);">
+          <div class="mb-3 mb-md-0">
+              <h2 style="font-weight: 700; font-size: 1.65rem; color: var(--text-main); margin-bottom: 4px; letter-spacing: -0.02em;">Forensic Analysis Report</h2>
+              <p class="text-muted mb-0" style="font-size: 0.95rem;">View AI-generated authenticity analysis results.</p>
+          </div>
+          <a href="{{ url_for('video_detection') }}" class="btn-secondary-premium">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+              New Analysis
+          </a>
+      </div>
+
+      <div class="row justify-content-center">
+        <!-- Filmstrip Section -->
+        <style>
+          .filmstrip-wrapper {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 10px 5px;
+            scroll-behavior: smooth;
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.02);
+            border: 1px solid var(--border-light);
+          }
+          .filmstrip-wrapper::-webkit-scrollbar {
+            height: 6px;
+          }
+          .filmstrip-wrapper::-webkit-scrollbar-track {
+            background: transparent;
+          }
+          .filmstrip-wrapper::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+          }
+          .filmstrip-wrapper img {
+            height: 100px;
+            width: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+          }
+          .filmstrip-wrapper img:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-color);
+            z-index: 1;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+          }
+        </style>
+
+        <div class="col-12 col-lg-10 mb-4">
+          <h4 class="text-center mb-3" style="color: var(--text-main); font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em;">
+            Preprocessed Frames (Sampling Sequence)
+          </h4>
+          <div class="filmstrip-wrapper animate-fade-in mx-auto" id="preprocessed_images" style="max-width: 960px;">
+            {% for each_image in preprocessed_images %}
+            <img src="{{ each_image }}" loading="lazy" />
+            {%endfor%}
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-10 mb-5">
+          <h4 class="text-center mb-3" style="color: var(--text-main); font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em;">
+            Detected Face Targets
+          </h4>
+          <div class="filmstrip-wrapper animate-fade-in mx-auto" id="faces_images" style="max-width: 960px;">
+            {% for each_image in faces_cropped_images %}
+            <img src="{{ each_image }}" loading="lazy" />
+            {%endfor%}
+          </div>
+        </div>
+
+        <!-- Prediction Result Section -->
+        <div class="col-12 text-center">
+          <div class="glass-card mx-auto" style="max-width: 960px; padding: 40px; border-radius: 20px; box-shadow: var(--shadow-premium); border: 1px solid var(--border-light);">
+            
+            <!-- Video Player -->
+            <div class="position-relative mx-auto mb-5" style="max-width: 600px; border-radius: 12px; border: 1px solid var(--border-light); padding: 8px; background: rgba(15, 23, 42, 0.02); box-shadow: var(--shadow-soft);">
+              <video id="predict-media" controls
+                style="width: 100%; border-radius: 8px; display: block;">
+                <source src="{{original_video}}" type="video/mp4" codecs="avc1.4d002a" />
+              </video>
+            </div>
+
+            <!-- Dashboard Gauges -->
+            <div class="d-flex flex-column flex-md-row justify-content-center gap-4 gap-md-5 mb-5">
+              <!-- Video Gauge -->
+              <div class="d-flex flex-column align-items-center">
+                <h5 class="text-muted mb-4" style="font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Video Temporal Analysis</h5>
+                
+                <div class="circular-gauge mb-3">
+                  <svg viewBox="0 0 180 180">
+                    <circle class="bg-circle" cx="90" cy="90" r="75"></circle>
+                    <circle class="progress-circle" cx="90" cy="90" r="75" 
+                            style="stroke: {% if output == 'REAL' %}var(--success-color){% else %}var(--danger-color){% endif %};
+                                   filter: drop-shadow(0 0 8px {% if output == 'REAL' %}rgba(16,185,129,0.35){% else %}rgba(244,63,94,0.35){% endif %});
+                                   stroke-dasharray: 471;
+                                   stroke-dashoffset: calc(471 - (471 * {{ confidence }}) / 100);">
+                    </circle>
+                  </svg>
+                  <div class="gauge-content">
+                    <div class="gauge-value" style="color: {% if output == 'REAL' %}var(--success-color){% else %}var(--danger-color){% endif %};">{{confidence}}%</div>
+                    <div class="gauge-label">Confidence</div>
+                  </div>
+                </div>
+
+                <div class="d-inline-flex align-items-center justify-content-center gap-2" style="background: {% if output == 'REAL' %}rgba(16, 185, 129, 0.08){% else %}rgba(244, 63, 94, 0.08){% endif %}; padding: 8px 20px; border-radius: 50px; border: 1px solid {% if output == 'REAL' %}rgba(16, 185, 129, 0.2){% else %}rgba(244, 63, 94, 0.2){% endif %};">
+                  <img src="{% if output == 'REAL' %}{{ url_for('static', path='images/thumpup.png') }}{% else %}{{ url_for('static', path='images/thumpdown.png') }}{% endif %}" alt="{{output}}" style="width: 20px; height: 20px; object-fit: contain;">
+                  <div class="verdict-text {% if output == 'REAL' %}text-green{% else %}text-danger{% endif %}" style="margin: 0; font-size: 1.25rem; font-weight: 800; line-height: 1; padding: 0;">
+                    {{output}}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Audio Gauge -->
+              <div class="d-flex flex-column align-items-center">
+                <h5 class="text-muted mb-4" style="font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Audio Spectral Analysis</h5>
+                
+                {% if audio_output == "REAL" or audio_output == "FAKE" %}
+                <div class="circular-gauge mb-3">
+                  <svg viewBox="0 0 180 180">
+                    <circle class="bg-circle" cx="90" cy="90" r="75"></circle>
+                    <circle class="progress-circle" cx="90" cy="90" r="75" 
+                            style="stroke: {% if audio_output == 'REAL' %}var(--success-color){% else %}var(--danger-color){% endif %};
+                                   filter: drop-shadow(0 0 8px {% if audio_output == 'REAL' %}rgba(16,185,129,0.35){% else %}rgba(244,63,94,0.35){% endif %});
+                                   stroke-dasharray: 471;
+                                   stroke-dashoffset: calc(471 - (471 * {{ audio_confidence }}) / 100);">
+                    </circle>
+                  </svg>
+                  <div class="gauge-content">
+                    <div class="gauge-value" style="color: {% if audio_output == 'REAL' %}var(--success-color){% else %}var(--danger-color){% endif %};">{{audio_confidence}}%</div>
+                    <div class="gauge-label">Confidence</div>
+                  </div>
+                </div>
+                
+                <div class="d-inline-flex align-items-center justify-content-center gap-2" style="background: {% if audio_output == 'REAL' %}rgba(16, 185, 129, 0.08){% else %}rgba(244, 63, 94, 0.08){% endif %}; padding: 8px 20px; border-radius: 50px; border: 1px solid {% if audio_output == 'REAL' %}rgba(16, 185, 129, 0.2){% else %}rgba(244, 63, 94, 0.2){% endif %};">
+                  <img src="{% if audio_output == 'REAL' %}{{ url_for('static', path='images/thumpup.png') }}{% else %}{{ url_for('static', path='images/thumpdown.png') }}{% endif %}" alt="{{audio_output}}" style="width: 20px; height: 20px; object-fit: contain;">
+                  <div class="verdict-text {% if audio_output == 'REAL' %}text-green{% else %}text-danger{% endif %}" style="margin: 0; font-size: 1.25rem; font-weight: 800; line-height: 1; padding: 0;">
+                    {{audio_output}}
+                  </div>
+                </div>
+                {% else %}
+                <div class="circular-gauge mb-3">
+                  <svg viewBox="0 0 180 180">
+                    <circle class="bg-circle" cx="90" cy="90" r="75"></circle>
+                    <circle class="progress-circle" cx="90" cy="90" r="75" 
+                            style="stroke: var(--text-light); stroke-dasharray: 471; stroke-dashoffset: 471;">
+                    </circle>
+                  </svg>
+                  <div class="gauge-content">
+                    <div class="gauge-value" style="color: var(--text-light); font-size: 1.6rem;">N/A</div>
+                    <div class="gauge-label">No Feed</div>
+                  </div>
+                </div>
+                <div class="verdict-text" style="color: var(--text-light); font-size: 1.25rem; font-weight: 800; text-transform: uppercase;">
+                  {{audio_output}}
+                </div>
+                {% endif %}
+              </div>
+            </div>
+
+            <!-- PDF Report Button -->
+            <div class="pt-4 text-center" style="border-top: 1px solid var(--border-light);">
+              <a href="{{ url_for('download_report') }}" class="btn-primary-premium">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Download Forensic Report (PDF)
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {%endif%}
+  </div>
+</div>
+{%endblock%}
+
+{%block js_cripts%}
+<script src="{{ url_for('static', path='js/face-api.min.js') }}"></script>
+<script>
+  $(document).ready(function () {
+    const video = document.getElementById("predict-media");
+
+    Promise.all([
+      faceapi.nets.ssdMobilenetv1.loadFromUri('/static/json'),
+      faceapi.nets.tinyFaceDetector.loadFromUri("/static/json")
+    ])
+
+    var detectionTimeout;
+    if (video) {
+      video.addEventListener("playing", () => {
+        var canvas;
+        if ($('canvas').length < 1) {
+          canvas = faceapi.createCanvasFromMedia(video);
+          canvas.style.top = video.offsetTop + "px";
+          canvas.style.left = video.offsetLeft + "px";
+          // Ensure canvas is positioned correctly relative to video
+          canvas.style.position = 'absolute';
+          // Adjust z-index if needed
+          video.parentNode.appendChild(canvas);
+        }
+        /* In order to be able to pause the video */
+        const displaySize = { width: video.clientWidth, height: video.clientHeight }; // Use client dimensions
+        faceapi.matchDimensions(canvas, displaySize);
+
+        detectionTimeout = setInterval(async () => {
+          const detections = await faceapi.detectAllFaces(video);
+          const resizedDetections = faceapi.resizeResults(detections, displaySize);
+          canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+          canvas.style.top = video.offsetTop + "px";
+          canvas.style.left = video.offsetLeft + "px";
+
+          resizedDetections.forEach((result, i) => {
+            var resultText = '{{output}}';
+            var confidence = '{{confidence}}';
+            var drawOptions = { label: resultText.concat("  ", confidence, "%") };
+            if (resultText == 'REAL') {
+              drawOptions["boxColor"] = "#10b981"; // Emerald Green
+            }
+            else if (resultText == 'FAKE') {
+              drawOptions["boxColor"] = "#f43f5e"; // Rose Red
+            }
+            var box = { x: resizedDetections[i].box.x, y: resizedDetections[i].box.y, height: resizedDetections[i].box.height, width: resizedDetections[i].box.width };
+            const drawBox = new faceapi.draw.DrawBox(box, drawOptions);
+            drawBox.draw(canvas);
+          });
+        }, 100); // 100ms for performance
+      });
+
+      video.addEventListener("paused", () => {
+        clearTimeout(detectionTimeout);
+      });
+
+      // Handle resize to keep boxes aligned
+      window.addEventListener('resize', () => {
+        if ($('canvas').length > 0) {
+          const canvas = $('canvas')[0];
+          const displaySize = { width: video.clientWidth, height: video.clientHeight };
+          faceapi.matchDimensions(canvas, displaySize);
+          canvas.style.top = video.offsetTop + "px";
+          canvas.style.left = video.offsetLeft + "px";
+        }
+      });
+    }
+  })
+</script>
+{%endblock%}

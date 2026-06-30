@@ -1,0 +1,429 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Compact Hero Section -->
+<section class="hero-section position-relative overflow-hidden" id="hero" style="padding: 4rem 0 3rem 0; min-height: 60vh;">
+    <!-- Background subtle lights -->
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    
+    <div class="container">
+        <div class="row align-items-center py-2">
+            <!-- Left Side: Copy -->
+            <div class="col-lg-6 hero-text-col mb-4 mb-lg-0 animate-fade-in-left">
+                <div class="trust-badge-pill mb-2">
+                    <span class="pulse-dot"></span>
+                    <span>Capstone Project Defense Protocol</span>
+                </div>
+                <h1 class="hero-title-premium" style="font-size: 2.8rem; line-height: 1.15; margin-bottom: 1rem;">
+                    Protecting Digital Truth with AI-Powered <span class="gradient-text">Deepfake Detection</span>
+                </h1>
+                <p class="hero-desc-premium" style="font-size: 1.02rem; line-height: 1.6; margin-bottom: 1.8rem; max-width: 540px;">
+                    An advanced cybersecurity research model designed to expose synthetic manipulations across digital media. Detect AI-generated alterations in video footage, images, and vocal sequences in real-time.
+                </p>
+                <div class="hero-actions d-flex flex-wrap gap-3 mb-3">
+                    <a href="#models" class="btn-primary-premium hover-lift" style="padding: 10px 24px; font-size: 0.92rem; display: inline-flex; align-items: center; gap: 8px;">
+                        <span>Explore Models</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                    <a href="#project-explanation" class="btn-secondary-premium hover-lift" style="padding: 10px 24px; font-size: 0.92rem; display: inline-flex; align-items: center; gap: 8px;">
+                        <span>Learn More</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    </a>
+                </div>
+                
+                <!-- Trust badges grid -->
+                <div class="trust-badges-grid" style="margin-top: 1.2rem; padding-top: 1rem;">
+                    <div class="badge-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-indigo"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Image Detection</span>
+                    </div>
+                    <div class="badge-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-indigo"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Video Detection</span>
+                    </div>
+                    <div class="badge-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-indigo"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Audio Detection</span>
+                    </div>
+                    <div class="badge-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-indigo"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>AI Powered</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Side: Compact Graphic Illustration -->
+            <div class="col-lg-6 hero-graphic-col text-center d-flex justify-content-center align-items-center animate-fade-in-right">
+                <div class="futuristic-illustration-container" style="max-width: 450px; width: 100%;">
+                    <div class="mesh-grid-bg" style="border-radius: 20px;"></div>
+                    <img src="{{ url_for('static', path='images/Hero Section.png') }}" alt="DeepFake Guard Security Analysis" class="hero-illustration-img img-fluid" style="position: relative; z-index: 2;" loading="eager">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Models Section -->
+<section class="models-section py-5 bg-white" id="models">
+    <div class="container">
+        <div class="section-header text-center mb-5 max-width-700 mx-auto">
+            <span class="section-tag-pill">Diagnostic Modules</span>
+            <h2 class="section-title mt-2">AI Classifiers</h2>
+            <p class="section-subtitle">
+                Access our specialized AI detection models trained for distinct artifact extractions. Select a scan pipeline.
+            </p>
+        </div>
+        
+        <div class="row">
+            <!-- Model 1: Image Detection -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="model-card-premium h-100 hover-lift">
+                    <div class="model-badge">98.2% Accuracy</div>
+                    <div class="model-icon-box bg-light-cyan text-cyan">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                    </div>
+                    <h3 class="model-card-title">Image Detection</h3>
+                    <p class="model-card-desc">
+                        Analyze static images for compression anomalies, EXIF metadata discrepancies, error level analysis (ELA), and generative GAN artifacts.
+                    </p>
+                    <a href="{{ url_for('image_detection') }}" class="btn-model-card">
+                        <span>Open Detection</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Model 2: Video Detection -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="model-card-premium h-100 hover-lift">
+                    <div class="model-badge">99.1% Accuracy</div>
+                    <div class="model-icon-box bg-light-indigo text-indigo">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+                    </div>
+                    <h3 class="model-card-title">Video Detection</h3>
+                    <p class="model-card-desc">
+                        Identify facial inconsistencies and temporal frame manipulation using state-of-the-art ResNeXt spatial encoders matched with LSTM sequence networks.
+                    </p>
+                    <a href="{{ url_for('video_detection') }}" class="btn-model-card">
+                        <span>Open Detection</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Model 3: Audio Detection -->
+            <div class="col-lg-4 col-md-6 mb-4 mx-auto">
+                <div class="model-card-premium h-100 hover-lift">
+                    <div class="model-badge">95.4% Accuracy</div>
+                    <div class="model-icon-box bg-light-green text-green">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+                    </div>
+                    <h3 class="model-card-title">Audio Detection</h3>
+                    <p class="model-card-desc">
+                        Scan audio tracks and speech clips for synthesization signatures, vocoder anomalies, spectral mismatching, and AI voice cloning patterns.
+                    </p>
+                    <a href="{{ url_for('audio_detection') }}" class="btn-model-card">
+                        <span>Open Detection</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Project Explanation Section -->
+<section class="project-explanation py-5" id="project-explanation">
+    <div class="container">
+        <!-- What is DeepFake Guard -->
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6 mb-4 mb-lg-0 pr-lg-5">
+                <span class="section-tag-pill">Cybersecurity Architecture</span>
+                <h2 class="section-title text-left mt-2">What is DeepFake Guard?</h2>
+                <p class="explanation-p">
+                    DeepFake Guard is a specialized digital forensics and AI verification system. Generative adversarial networks (GANs) and speech synthesis models have reached a level of detail that makes manually detecting synthetic alterations virtually impossible.
+                </p>
+                <p class="explanation-p">
+                    By combining deep neural architectures and temporal checks, DeepFake Guard detects inconsistencies in visual and audio metadata, protecting communications and reinforcing trust in digital environments.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <div class="threat-highlights-grid">
+                    <div class="threat-card hover-lift">
+                        <div class="threat-card-badge danger-badge">Threat Vector</div>
+                        <h4>Why AI Detection Matters</h4>
+                        <p>Manipulated media can bypass identity locks, impact reputation, and fuel information security leaks. Automatic scanning provides critical protections.</p>
+                    </div>
+                    <div class="threat-card hover-lift">
+                        <div class="threat-card-badge primary-badge">Methodology</div>
+                        <h4>Digital Trust & Forensics</h4>
+                        <p>We leverage deep network checks, frequency spectrum isolation, and sequence tracking to score media authenticity reliably.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Workflow Timeline -->
+        <div class="workflow-wrapper mb-5">
+            <h3 class="subsection-title text-center mb-5">Media Scanning Workflow</h3>
+            <div class="workflow-timeline-horizontal">
+                <!-- Step 1 -->
+                <div class="timeline-step">
+                    <div class="step-num">01</div>
+                    <div class="step-card">
+                        <h5>Upload File</h5>
+                        <p>Submit media through our secure sandboxed upload gates.</p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="timeline-step">
+                    <div class="step-num">02</div>
+                    <div class="step-card">
+                        <h5>Preprocessing</h5>
+                        <p>Split video streams to frame sequences or extract mel-spectrograms.</p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="timeline-step">
+                    <div class="step-num">03</div>
+                    <div class="step-card">
+                        <h5>Feature Extraction</h5>
+                        <p>Locate facial geometry coordinates or audio frequency channels.</p>
+                    </div>
+                </div>
+                <!-- Step 4 -->
+                <div class="timeline-step">
+                    <div class="step-num">04</div>
+                    <div class="step-card">
+                        <h5>AI Model Scan</h5>
+                        <p>Run PyTorch ResNeXt and Tensorflow neural net layers.</p>
+                    </div>
+                </div>
+                <!-- Step 5 -->
+                <div class="timeline-step">
+                    <div class="step-num">05</div>
+                    <div class="step-card">
+                        <h5>Confidence Score</h5>
+                        <p>Calculate probability score of synthetic model generations.</p>
+                    </div>
+                </div>
+                <!-- Step 6 -->
+                <div class="timeline-step">
+                    <div class="step-num">06</div>
+                    <div class="step-card">
+                        <h5>Prediction Result</h5>
+                        <p>Compile diagnostic reports with visual detection highlight frames.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Features Grid -->
+        <div class="features-grid-wrapper mt-5">
+            <h3 class="subsection-title text-center mb-5">System Capabilities</h3>
+            <div class="row">
+                <!-- Feature 1 -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card-premium">
+                        <div class="feature-card-icon text-indigo">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                        </div>
+                        <h5>Image Detection</h5>
+                        <p>Locates compression mismatches, GAN borders, and lighting inconsistencies in static frames.</p>
+                    </div>
+                </div>
+                <!-- Feature 2 -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card-premium">
+                        <div class="feature-card-icon text-cyan">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+                        </div>
+                        <h5>Video Detection</h5>
+                        <p>Processes facial movements frame-by-frame using spatial ResNeXt and recurrent LSTM layers.</p>
+                    </div>
+                </div>
+                <!-- Feature 3 -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card-premium">
+                        <div class="feature-card-icon text-green">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+                        </div>
+                        <h5>Audio Detection</h5>
+                        <p>Scans auditory patterns, phase offsets, and noise shapes to detect clone voices.</p>
+                    </div>
+                </div>
+                <!-- Feature 4 -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card-premium">
+                        <div class="feature-card-icon text-amber">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        </div>
+                        <h5>Secure Upload</h5>
+                        <p>Files are stored in temporary sessions, analyzed sandboxed locally, and safely removed.</p>
+                    </div>
+                </div>
+                <!-- Feature 5 -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card-premium">
+                        <div class="feature-card-icon text-indigo">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        </div>
+                        <h5>Fast Processing</h5>
+                        <p>Optimized image extraction and batch sequencing models run in seconds.</p>
+                    </div>
+                </div>
+                <!-- Feature 6 -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card-premium">
+                        <div class="feature-card-icon text-cyan">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
+                        </div>
+                        <h5>High Accuracy</h5>
+                        <p>Trained on standardized datasets to lower target error rates under 1.5%.</p>
+                    </div>
+                </div>
+                <!-- Feature 7 -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card-premium">
+                        <div class="feature-card-icon text-green">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                        </div>
+                        <h5>AI Models</h5>
+                        <p>Preloaded PyTorch networks and CNN architectures process classifications directly.</p>
+                    </div>
+                </div>
+                <!-- Feature 8 -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card-premium">
+                        <div class="feature-card-icon text-amber">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                        </div>
+                        <h5>Responsive Design</h5>
+                        <p>Custom mobile viewport layouts keep sizing clean across standard tablets and phones.</p>
+                    </div>
+                </div>
+                <!-- Feature 9 -->
+                <div class="col-lg-4 col-md-6 mb-4 mx-auto">
+                    <div class="feature-card-premium">
+                        <div class="feature-card-icon text-indigo">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg>
+                        </div>
+                        <h5>Modern Interface</h5>
+                        <p>Pill glass navbar navigations, micro-animations, and light cards simplify checks.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Us Section -->
+<section class="contact-section py-5 bg-white" id="contact">
+    <div class="container">
+        <div class="row">
+            <!-- Left Side: Information -->
+            <div class="col-lg-6 mb-5 mb-lg-0 pr-lg-5 animate-fade-in">
+                <span class="section-tag-pill">Get In Touch</span>
+                <h2 class="section-title text-left mt-2">Contact DeepFake Guard</h2>
+                <p class="contact-desc-paragraph mt-3 mb-4">
+                    For inquiries related to our Capstone research project, AI integration parameters, or digital forensic testing, reach out to our team:
+                </p>
+                
+                <!-- Bullet checklist -->
+                <ul class="contact-checklist mb-4">
+                    <li>
+                        <span class="bullet-check"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                        <span>Technical Support & Diagnostics</span>
+                    </li>
+                    <li>
+                        <span class="bullet-check"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                        <span>Research Collaboration Protocols</span>
+                    </li>
+                    <li>
+                        <span class="bullet-check"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                        <span>Feature Requests & Bug Reviews</span>
+                    </li>
+                </ul>
+                
+                <!-- Contact Details Grid -->
+                <div class="contact-details-grid">
+                    <!-- Email -->
+                    <div class="contact-detail-card hover-lift">
+                        <div class="contact-detail-icon bg-light-indigo text-indigo">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        </div>
+                        <div>
+                            <h6>Email Contacts</h6>
+                            <a href="mailto:ops@deepfakeguard.tech" class="contact-detail-link">ops@deepfakeguard.tech</a>
+                        </div>
+                    </div>
+                    <!-- GitHub -->
+                    <div class="contact-detail-card hover-lift">
+                        <div class="contact-detail-icon bg-light-cyan text-cyan">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                        </div>
+                        <div>
+                            <h6>Project Repository</h6>
+                            <a href="https://github.com/deepfake-video-detection" target="_blank" class="contact-detail-link">github.com/deepfake-guard</a>
+                        </div>
+                    </div>
+                    <!-- LinkedIn -->
+                    <div class="contact-detail-card hover-lift">
+                        <div class="contact-detail-icon bg-light-green text-green">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                        </div>
+                        <div>
+                            <h6>LinkedIn Hub</h6>
+                            <a href="#" class="contact-detail-link">linkedin.com/company/deepfakeguard</a>
+                        </div>
+                    </div>
+                    <!-- Location -->
+                    <div class="contact-detail-card hover-lift">
+                        <div class="contact-detail-icon bg-light-orange text-orange">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        </div>
+                        <div>
+                            <h6>Academic Base</h6>
+                            <span class="contact-detail-link text-muted" style="font-weight:700;">Silicon Valley, CA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Side: Contact Form -->
+            <div class="col-lg-6 animate-fade-in-right">
+                <div class="contact-form-card-premium">
+                    <h4 class="form-title mb-4">Send a Secure Message</h4>
+                    <form action="#" method="POST" id="contact-us-form" onsubmit="event.preventDefault(); alert('Message queued. Your form verification has succeeded!'); this.reset();">
+                        <div class="form-group mb-3">
+                            <label for="contact-name" class="form-label-premium">Your Name</label>
+                            <input type="text" id="contact-name" name="name" class="form-control-premium" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="contact-email" class="form-label-premium">Email Address</label>
+                            <input type="email" id="contact-email" name="email" class="form-control-premium" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="contact-subject" class="form-label-premium">Subject</label>
+                            <input type="text" id="contact-subject" name="subject" class="form-control-premium" placeholder="Academic / Integration Cooperation" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="contact-message" class="form-label-premium">Message Body</label>
+                            <textarea id="contact-message" name="message" class="form-control-premium" rows="4" placeholder="Your message here..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary-premium w-100 hover-lift d-flex align-items-center justify-content-center gap-2">
+                            <span>Send Message</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block js_cripts %}
+<script src="{{ url_for('static', path='js/script.js') }}?v=9"></script>
+{% endblock %}

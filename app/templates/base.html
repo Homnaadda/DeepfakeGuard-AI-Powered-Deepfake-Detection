@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/jquery-ui.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', path='css/styles.css') }}?v=9">
+    <link rel="icon" type="image/png" href="{{ url_for('static', path='images/Logo.png') }}">
+    <title>DeepFake Guard – Premium Deepfake Detection & Cybersecurity</title>
+</head>
+
+<body>
+    <!-- Capstone Credentials Top Bar -->
+    <div class="top-bar-credentials">
+        <div class="container d-flex justify-content-center align-items-center" style="height: 40px; font-size: 0.82rem; color: var(--text-muted); font-weight: 500;">
+            <span class="d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; color: var(--primary-color);"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path></svg>
+                AI-Powered DeepFake Detection
+            </span>
+            <span style="margin: 0 10px; color: var(--border-light);">&bull;</span>
+            <span>Capstone Final Year Project</span>
+        </div>
+    </div>
+    
+    <!-- Forensic Loader Overlay -->
+    <div id="loader-overlay">
+        <div class="loader-container">
+            <img src="{{ url_for('static', path='images/Logo.png') }}" alt="DeepFake Guard Logo" style="width: 44px; height: 44px; margin-bottom: 20px; filter: drop-shadow(0 2px 8px rgba(99, 102, 241, 0.25)); animation: pulse-logo 2.5s ease-in-out infinite;">
+            <div class="scan-radar">
+                <div class="scan-radar-grid"></div>
+                <div class="scan-radar-laser"></div>
+            </div>
+            <div class="loader-title">FORENSIC ANALYSIS IN PROGRESS</div>
+            <div class="loader-subtitle">Scanning files using neural network nodes...</div>
+            <div class="loader-status-console">
+                <span id="loader-status-text">Initializing analysis systems...</span>
+            </div>
+        </div>
+    </div>
+
+    {%include 'nav-bar.html'%}
+    {%block content%}
+    {%endblock%}
+    
+    <script src="/static/js/jquery-3.4.1.min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/jquery-ui.min.js"></script>
+
+    {%block js_cripts%}
+    {%endblock%}
+    {%include 'footer.html'%}
+</body>
+
+</html>

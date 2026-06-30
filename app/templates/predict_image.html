@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{%block content%}
+<div class="main-content" style="padding: 40px 0;">
+    <div class="container">
+        <div class="results-container">
+            <!-- Header Layout -->
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-3" style="border-bottom: 1px solid var(--border-light);">
+                <div class="mb-3 mb-md-0">
+                    <h2 style="font-weight: 700; font-size: 1.65rem; color: var(--text-main); margin-bottom: 4px; letter-spacing: -0.02em;">Image Analysis Report</h2>
+                    <p class="text-muted mb-0" style="font-size: 0.95rem;">View AI-generated authenticity analysis results.</p>
+                </div>
+                <a href="{{ url_for('image_detection') }}" class="btn-secondary-premium">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                    New Analysis
+                </a>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-12 mt-3">
+                    <div class="glass-card mx-auto text-center" style="max-width: 800px; padding: 40px; border-radius: 20px; box-shadow: var(--shadow-premium); border: 1px solid var(--border-light);">
+                        {% if no_faces %}
+                        <div class="py-5">
+                            <h3 class="mb-3" style="font-weight: 800; color: var(--danger-color);">No Face Detected</h3>
+                            <p class="text-muted mx-auto" style="max-width: 500px;">The spatial analysis could not locate a clear human face in the uploaded image. Please ensure the subject is clearly visible and try again.</p>
+                        </div>
+                        {% else %}
+                        
+                        <!-- Confidence Indicator -->
+                        <div class="d-flex flex-column align-items-center mb-5">
+                            {%if output == "REAL" or output == "FAKE" %}
+                            <div class="circular-gauge mb-3">
+                                <svg viewBox="0 0 180 180">
+                                    <circle class="bg-circle" cx="90" cy="90" r="75"></circle>
+                                    <circle class="progress-circle" cx="90" cy="90" r="75" 
+                                            style="stroke: {% if output == 'REAL' %}var(--success-color){% else %}var(--danger-color){% endif %};
+                                                   filter: drop-shadow(0 0 8px {% if output == 'REAL' %}rgba(16,185,129,0.35){% else %}rgba(244,63,94,0.35){% endif %});
+                                                   stroke-dasharray: 471;
+                                                   stroke-dashoffset: calc(471 - (471 * {{ confidence }}) / 100);">
+                                    </circle>
+                                </svg>
+                                <div class="gauge-content">
+                                    <div class="gauge-value" style="color: {% if output == 'REAL' %}var(--success-color){% else %}var(--danger-color){% endif %};">{{confidence}}%</div>
+                                    <div class="gauge-label">Confidence</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Prediction Badge -->
+                            <div class="d-inline-flex align-items-center justify-content-center gap-2" style="background: {% if output == 'REAL' %}rgba(16, 185, 129, 0.08){% else %}rgba(244, 63, 94, 0.08){% endif %}; padding: 8px 20px; border-radius: 50px; border: 1px solid {% if output == 'REAL' %}rgba(16, 185, 129, 0.2){% else %}rgba(244, 63, 94, 0.2){% endif %};">
+                                <img src="{% if output == 'REAL' %}{{ url_for('static', path='images/thumpup.png') }}{% else %}{{ url_for('static', path='images/thumpdown.png') }}{% endif %}" alt="{{output}}" style="width: 20px; height: 20px; object-fit: contain;">
+                                <div class="verdict-text {% if output == 'REAL' %}text-green{% else %}text-danger{% endif %}" style="margin: 0; font-size: 1.25rem; font-weight: 800; line-height: 1; padding: 0;">
+                                    {{output}}
+                                </div>
+                            </div>
+                            {%endif%}
+                        </div>
+
+                        <!-- Image Preview Section -->
+                        <div class="row mt-4">
+                            <div class="col-md-6 mb-4 d-flex flex-column">
+                                <h4 class="text-center mb-3" style="color: var(--text-main); font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                                    Original Image
+                                </h4>
+                                <div style="flex: 1; min-height: 280px; border-radius: 16px; border: 1px solid var(--border-light); overflow: hidden; display: flex; align-items: center; justify-content: center; background: rgba(15, 23, 42, 0.02); padding: 10px;">
+                                    <img src="{{original_image}}" style="width: 100%; height: 260px; object-fit: contain; border-radius: 8px;">
+                                </div>
+                            </div>
+                            {% if cropped_face %}
+                            <div class="col-md-6 mb-4 d-flex flex-column">
+                                <h4 class="text-center mb-3" style="color: var(--text-main); font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                                    Extracted Facial Feature
+                                </h4>
+                                <div style="flex: 1; min-height: 280px; border-radius: 16px; border: 1px solid var(--border-light); overflow: hidden; display: flex; align-items: center; justify-content: center; background: rgba(15, 23, 42, 0.02); padding: 10px;">
+                                    <img src="{{cropped_face}}" style="width: 100%; height: 260px; object-fit: contain; border-radius: 8px;">
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mt-4 pt-4 text-center" style="border-top: 1px solid var(--border-light);">
+                            <a href="{{ url_for('download_report') }}" class="btn-primary-premium">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                Download Forensic Report (PDF)
+                            </a>
+                        </div>
+                        
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

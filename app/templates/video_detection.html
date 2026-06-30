@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{%block content%}
+<div class="main-content animate-fade-in d-flex align-items-center justify-content-center" style="min-height: 80vh; padding: 40px 0; background-color: var(--bg-main);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <!-- Header -->
+                <div class="text-center mb-4">
+                    <div class="d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px; border-radius: 16px; background: rgba(99, 102, 241, 0.1); color: var(--primary-color);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"></path><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+                    </div>
+                    <h2 style="font-weight: 700; font-size: 1.8rem; color: var(--text-main); letter-spacing: -0.02em; margin-bottom: 8px;">Video Analysis</h2>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Examine temporal sequences and deepfake artifacts frame-by-frame.</p>
+                </div>
+
+                <div class="glass-card premium-shadow mx-auto" style="padding: 30px; border-radius: 20px; border: 1px solid rgba(99,102,241,0.2); background: var(--bg-card);">
+                    
+                    <form class="form" method="POST" action="{{ url_for('video_detection_post') }}" enctype="multipart/form-data" name="video-upload" id="video-upload">
+                        
+                        <div class="form-group mb-4">
+                            <label style="font-weight: 700; font-size: 0.9rem; color: var(--text-main); margin-bottom: 8px; display: block; text-transform: uppercase; letter-spacing: 0.05em;">Upload Video Asset</label>
+                            <div class="drag-drop-zone" id="drag-drop-video" onclick="document.getElementById('id_upload_video_file').click()" style="border: 2px dashed rgba(99,102,241,0.4); border-radius: 12px; padding: 30px 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: rgba(15, 23, 42, 0.02);">
+                                <div class="upload-icon mb-2 text-primary" style="color: var(--primary-color);">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                </div>
+                                <div class="upload-text">
+                                    <h5 style="color: var(--text-main); font-weight: 700; font-size: 1rem; margin-bottom: 4px;">Click or Drag to Upload</h5>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0;">Supports MP4, MOV, AVI (Max 50MB)</p>
+                                </div>
+                                <input type="file" name="upload_video_file" id="id_upload_video_file" required accept="video/*" class="d-none">
+                                <div class="selected-file-details mt-3" id="video-file-details" style="display: none; background: rgba(99,102,241,0.1); padding: 8px 12px; border-radius: 8px; align-items: center; justify-content: center; gap: 10px;">
+                                    <span class="file-name" style="font-weight: 600; color: var(--primary-color); font-size: 0.85rem;"></span>
+                                    <span class="file-size badge" style="background: var(--primary-color); color: #fff; font-size: 0.75rem;"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label style="font-weight: 700; font-size: 0.9rem; color: var(--text-main); margin-bottom: 8px; display: block; text-transform: uppercase; letter-spacing: 0.05em;">Sampling Sequence Range</label>
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <span class="badge text-bg-light" style="font-size: 0.85rem; font-weight: 600;">Fast Scan</span>
+                                <span class="badge" style="background: rgba(99,102,241,0.1); color: var(--primary-color); font-size: 0.85rem; font-weight: 700;" id="sequenceValue">10 Frames</span>
+                                <span class="badge text-bg-light" style="font-size: 0.85rem; font-weight: 600;">Deep Scan</span>
+                            </div>
+                            <input type="range" class="form-range custom-range" min="10" max="100" step="10" value="10" id="sequence_length" name="sequence_length">
+                        </div>
+
+                        <button id="videoUpload" type="submit" name="submit" class="btn w-100 btn-primary-premium" style="background: linear-gradient(135deg, var(--primary-color), #4f46e5); border: none; font-size: 1rem; padding: 12px; color: #fff; border-radius: 10px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            Execute Global Scan
+                        </button>
+                    </form>
+
+                    {%if error%}
+                    <div class="alert alert-danger mt-3 d-flex align-items-center mb-0" role="alert" style="background: rgba(244, 63, 94, 0.08); color: var(--danger-color); border: 1px solid rgba(244, 63, 94, 0.2); border-radius: 10px; padding: 12px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 10px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                        <span style="font-weight: 600; font-size: 0.85rem;">{{error}}</span>
+                    </div>
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
+
+{%block js_cripts%}
+<script src="{{ url_for('static', path='js/script.js') }}?v=6"></script>
+<script>
+    $(function () {
+        var sliderSequenceNumbers = [10, 20, 40, 60, 80, 100];
+        var slider = $("div#slider").slider({
+            value: 2, // Default to 40 frames
+            min: 0,
+            max: sliderSequenceNumbers.length - 1,
+            slide: function (event, ui) {
+                $('#id_sequence_length').val(sliderSequenceNumbers[ui.value]);
+                $('#slider-value').html(sliderSequenceNumbers[ui.value] + " Frames");
+            }
+        });
+
+        // Initialize
+        var initialIndex = 2;
+        $("#id_sequence_length").val(sliderSequenceNumbers[initialIndex]);
+        $('#slider-value').html(sliderSequenceNumbers[initialIndex] + " Frames");
+        $("div#slider").slider("value", initialIndex);
+    });
+</script>
+{%endblock%}
